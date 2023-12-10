@@ -1,0 +1,110 @@
+/* Add your custom CSS styles here */
+body {
+    font-family: Verdana, Helvetica;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300vh;
+}
+
+.chat-container {
+    width: 100%; /* Adjust the width of the chat container */
+    max-width: 1000px; /* Set a maximum width to limit the container size */
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    text-align: center; /* Center the chat within the container */
+    padding: 20px; /* Add some padding to the container */
+}
+
+.chat-header {
+    background-color: #72B9B8;
+    padding: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.chat-box {
+    padding: 30px;
+}
+
+.chat-log {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.chat-message {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    clear: both;
+    word-wrap: break-word;
+}
+
+.user {
+    background-color: #e5e5ea;
+    float: left;
+}
+
+.chatbot {
+    background-color: #15A2A0;
+    color: #fff;
+    float: right;
+}
+
+.typing-indicator {
+    display: none; /* Initially hide the indicator */
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 20px;
+}
+
+.typing-indicator span {
+    background-color: #e5e5ea;
+    border-radius: 50%;
+    width: 11px;
+    height: 11px;
+    margin-right: 4px;
+    animation: typingAnimation 2s infinite; /* Apply animation */
+}
+
+@keyframes typingAnimation {
+    0%, 100% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+.chatbot-image {
+    width: 50px; /* Adjust the width of the chatbot image as needed */
+    height: auto; /* Maintain aspect ratio */
+    margin-right: 20px; /* Add space between the image and text */
+}
+
+.chatbot-title {
+    flex-grow: 1; /* Allow the title to take up remaining space */
+    margin: 0; /* Remove default margin for the title */
+    color: #fff;
+    font-family: Monaco;
+}
+.sender-icon {
+    width: 36px;
+    height: 36px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    margin-right: 10px; /* Adjust the spacing between the icon and message content */
+    flex-shrink: 0; /* Prevent the icon from shrinking */
+}
+
+.header-table td {
+    padding: 0; /* Remove cell padding */
+}
+
+

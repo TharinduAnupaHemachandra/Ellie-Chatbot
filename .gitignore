@@ -1,0 +1,7 @@
+# .gitignore
+
+#Exclude configuration file
+config.py
+.env
+venv_chatbot
+venv

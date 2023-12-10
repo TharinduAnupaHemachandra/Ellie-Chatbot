@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Chatbot</title>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+<!--            <div class="header-content">-->
+<!--                <img src="https://cdn-icons-png.flaticon.com/512/8943/8943377.png" alt="Chatbot Image" class="chatbot-image">-->
+<!--                <h1 class="chatbot-title">Ellie</h1>-->
+<!--            </div>-->
+            <table class="header-table">
+                <tr>
+                    <td>
+                        <img src="https://cdn-icons-png.flaticon.com/512/5292/5292531.png" alt="Chatbot Image" class="chatbot-image">
+                    </td>
+                    <td>
+                        <h1 class="chatbot-title">Ellie</h1>
+                    </td>
+                </tr>
+            </table>
+        </div>
+<!--        <div class="chat-header">-->
+
+<!--            -->
+<!--        </div>-->
+        <div class="chat-box">
+            <div class="chat-log" id="chat-log">
+                <!-- Chat messages will be displayed here -->
+            </div>
+            <div class="typing-indicator">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="user-input">
+                <input type="text" id="user-message" placeholder="Type your message...">
+                <button id="send-button">Send</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        // JavaScript for sending user messages and displaying responses
+        const chatLog = document.getElementById("chat-log");
+        const userMessageInput = document.getElementById("user-message");
+        const sendButton = document.getElementById("send-button");
+        const typingIndicator = document.querySelector(".typing-indicator");
+
+        function sendMessage() {
+            const userMessage = userMessageInput.value;
+            if (userMessage.trim() !== "") {
+                appendMessage("User", userMessage);
+                userMessageInput.value = "";
+                showTypingIndicator(); // Show the typing indicator
+
+                // Send the user's message to the server and get a response
+                fetch("/chat", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ user: userMessage })
+                })
+                .then(response => response.text())
+                .then(botResponse => {
+                    hideTypingIndicator(); // Hide the typing indicator
+                    appendMessage("Chatbot", botResponse);
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                });
+            }
+        }
+
+        sendButton.addEventListener("click", () => {
+            sendMessage();
+        });
+
+        userMessageInput.addEventListener("keydown", (event) => {
+            if (event.key === "Enter") {
+                event.preventDefault(); // Prevent the default action (submitting the form)
+                sendMessage();
+            }
+        });
+
+        function showTypingIndicator() {
+            typingIndicator.style.display = "flex";
+        }
+
+        function hideTypingIndicator() {
+            typingIndicator.style.display = "none";
+        }
+
+        function appendMessage(sender, message) {
+            const messageElement = document.createElement("div");
+            messageElement.classList.add("chat-message", sender === "User" ? "user" : "chatbot");
+            messageElement.innerHTML = `${message}`;
+            chatLog.appendChild(messageElement);
+
+            // Scroll to the bottom of the chat log
+            chatLog.scrollTop = chatLog.scrollHeight;
+        }
+    </script>
+</body>
+</html>
